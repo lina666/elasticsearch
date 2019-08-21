@@ -1,9 +1,10 @@
-package com.demo.elasticsearch.service;
+package com.demo.elasticsearch.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.demo.elasticsearch.bean.FileBean;
 import com.demo.elasticsearch.bean.FileBeanQuery;
 import com.demo.elasticsearch.bean.FileMapping;
+import com.demo.elasticsearch.service.IDocumentService;
 import com.demo.elasticsearch.util.AttachmentReader;
 import org.apache.http.HttpHost;
 import org.apache.lucene.search.join.ScoreMode;
@@ -32,8 +33,6 @@ import org.elasticsearch.client.core.CountResponse;
 import org.elasticsearch.common.text.Text;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.InnerHitBuilder;
-import org.elasticsearch.index.query.NestedQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -56,44 +55,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @Description: TODO
  * @Author: ln
- * @Date: 2019/2/22 15:37
- * @Description:
- */
+ * @Date: 2019/8/21 17:45
+ * @Version: 1.0
+ **/
 @Service
-public class ElasticsearchServiceImpl implements ElasticsearchService {
+public class DocumentServiceImpl implements IDocumentService {
 
     RestHighLevelClient client;
 
 
-    @Override
-    public String createIndex(String index, FileMapping mapping) throws IOException {
-        client = new RestHighLevelClient(
-                RestClient.builder(new HttpHost("localhost", 9200, "http")));
-        CreateIndexRequest request = new CreateIndexRequest(index);
 
-        //索引配置
-        request.mapping("doc",
-                "keywordName", "type=keyword", "keywordAuthor", "type=keyword",//关键字匹配
-                "suggestName", "type=completion", "suggestAuthor", "type=completion",//自动补全搜索
-                "fileBean", "type=nested");//把对象设置成嵌套对象，注意放对象的时候要以fileBean为键
-
-        CreateIndexResponse createIndexResponse = client.indices().create(request, RequestOptions.DEFAULT);
-        client.close();
-        return JSON.toJSONString(createIndexResponse);
-    }
-
-    @Override
-    public String delIndex(String index) throws IOException {
-        client = new RestHighLevelClient(
-                RestClient.builder(new HttpHost("localhost", 9200, "http")));
-        DeleteIndexRequest request = new DeleteIndexRequest(index);
-
-        AcknowledgedResponse deleteIndexResponse = client.indices().delete(request, RequestOptions.DEFAULT);
-        System.out.println(JSON.toJSONString(deleteIndexResponse));
-        client.close();
-        return JSON.toJSONString(deleteIndexResponse.isAcknowledged());
-    }
 
     @Override
     public String putDocument(String index, FileBean fileBean) throws IOException {
@@ -142,7 +115,7 @@ public class ElasticsearchServiceImpl implements ElasticsearchService {
 
     @Override
     public String keywordSearch(String index, String value,
-                            int current, int size) throws IOException {
+                                int current, int size) throws IOException {
         client = new RestHighLevelClient(
                 RestClient.builder(new HttpHost("localhost", 9200, "http")));
         SearchRequest searchRequest = new SearchRequest();
@@ -313,43 +286,6 @@ public class ElasticsearchServiceImpl implements ElasticsearchService {
         return JSON.toJSONString(hits);
     }
 
-    @Override
-    public String putMapping(String index) throws IOException {
-        client = new RestHighLevelClient(
-                RestClient.builder(new HttpHost("localhost", 9200, "http")));
-        PutMappingRequest request = new PutMappingRequest(index);
-        request.type("doc");
-
-        request.source("name", "type=text");
-        request.source("author", "type=text");
-        request.source("content", "type=text");
-        request.source("filePath", "type=text");
-
-        request.source("keywordName", "type=keyword");
-        request.source("keywordAuthor", "type=keyword");
-
-        request.source("suggestName", "type=completion");
-        request.source("suggestAuthor", "type=completion");
-
-        AcknowledgedResponse putMappingResponse = client.indices().putMapping(request, RequestOptions.DEFAULT);
-        System.out.println(JSON.toJSONString(putMappingResponse));
-        return JSON.toJSONString(putMappingResponse);
-    }
-
-    @Override
-    public String getMapping(String index) throws IOException {
-        client = new RestHighLevelClient(
-                RestClient.builder(new HttpHost("localhost", 9200, "http")));
-
-        GetMappingsRequest request = new GetMappingsRequest();
-        request.indices(index);
-        request.types("doc");
-
-        GetMappingsResponse getMappingResponse = client.indices().getMapping(request, RequestOptions.DEFAULT);
-        System.out.println(JSON.toJSONString(getMappingResponse));
-        return JSON.toJSONString(getMappingResponse);
-
-    }
 
     @Override
     public String countQuery(String index) throws IOException {
