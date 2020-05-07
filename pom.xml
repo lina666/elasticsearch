@@ -32,7 +32,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- fastjson 版本1.2.28以前有远程代码漏洞，版本最好是该版本或之后的 -->
+        <!-- fastJson 版本1.2.28以前有远程代码漏洞，版本最好是该版本或之后的 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
@@ -45,13 +45,13 @@
             <version>2.0.16</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.elasticsearch.client/elasticsearch-rest-high-level-client -->
+        <!-- elasticsearch-rest-high-level-client，版本要与elasticsearch一致 -->
         <dependency>
             <groupId>org.elasticsearch.client</groupId>
             <artifactId>elasticsearch-rest-high-level-client</artifactId>
             <version>6.6.1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.elasticsearch/elasticsearch -->
+        <!-- elasticsearch -->
         <dependency>
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch</artifactId>

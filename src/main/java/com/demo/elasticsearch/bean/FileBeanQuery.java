@@ -1,10 +1,13 @@
 package com.demo.elasticsearch.bean;
 
+import lombok.Data;
+
 /**
- * @Author: ln
- * @Date: 2019/2/26 08:59
- * @Description:
+ * @ author: ln
+ * @ date: 2019/2/26 08:59
+ * @ description: 文档查询类
  */
+@Data
 public class FileBeanQuery {
     /** 文件名称 */
     private String name;
@@ -15,35 +18,5 @@ public class FileBeanQuery {
     /** 文件路径 */
     private String filePath;
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
 }

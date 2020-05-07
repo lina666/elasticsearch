@@ -1,12 +1,13 @@
 package com.demo.elasticsearch.bean;
 
-import java.util.Date;
+import lombok.Data;
 
 /**
- * @Author: ln
- * @Date: 2019/2/26 08:59
- * @Description:
+ * @ author: ln
+ * @ date: 2019/2/26 08:59
+ * @ description: 文档实体类
  */
+@Data
 public class FileBean {
     //text支持分词搜索的字段有：name，author，content，filePath
     //keyword支持不分词搜索的字段有：name，author
@@ -22,45 +23,6 @@ public class FileBean {
     /** 文件路径 */
     private String filePath;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
     //不分词搜索
     public String getKeywordName() {
         return this.name;
