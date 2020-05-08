@@ -1,12 +1,9 @@
 package com.demo.elasticsearch.common;
 
 /**
- * @Author: ZYJ
- * @Description: ResultCode
- * @CreateDate: 2019-03-11 22:46
- * @UpdateUser: ZYJ
- * @UpdateDate: 2019-03-11 22:46
- * @UpdateRemark: 更新说明
+ * @Description: TODO
+ * @Author: ln
+ * @Date: 2019/8/21 17:09
  * @Version: 1.0
  **/
 public enum ResultCodeEnum {
